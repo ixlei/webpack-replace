@@ -1,4 +1,5 @@
-const ConcatSource = require('webpack-core/lib/ConcatSource');
+"use strict";
+const { ConcatSource } = require("webpack-sources");
 
 class ReplaceWebapck {
     constructor(options) {
@@ -24,11 +25,14 @@ class ReplaceWebapck {
             version: false
         };
         const allChunks = compilation.getStats().toJson(chunkOnlyFilterConfig).chunks;
+        return allChunks;
     }
 
     apply(compiler) {
         let optimizeChunkAssetsHook = (chunks) => {
-            let allChunks = this.getAllChunks(this.compilation);
+            let compilation = this.compilation;
+            let allChunks = this.getAllChunks(compilation);
+
             allChunks.forEach((item, key) => {
                 let js = [],
                     css = [];
@@ -48,7 +52,6 @@ class ReplaceWebapck {
                 css.forEach(function(item) {
                     cssSource.push(compilation.assets[item].source())
                 });
-
                 this.options.inject && this.options.inject(item.names, jsSource, cssSource);
                 if (this.options.inject) {
                     jsSource.forEach(function(source, index) {
