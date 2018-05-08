@@ -44,6 +44,16 @@ Allowed values are as follows
 
 Here's an example webpack config illustrating how to use these options
 
+**index.js**
+```js
+// inject styles to the css
+(function() {
+  var styles = '__inject_styles_css';
+  var styleEle = document.createElement('style');
+  styleEle.innerHTML = styles;
+  document.head.appendChild(styleEle);
+})()
+```
 **webpack.config.js**
 ```js
 const HtmlWebpackPlugin = require('webpack-replace-plugin')
