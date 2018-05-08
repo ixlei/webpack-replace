@@ -51,7 +51,7 @@ Here's an example webpack config illustrating how to use these options
   var styles = '__inject_styles_css';
   var styleEle = document.createElement('style');
   styleEle.innerHTML = styles;
-  document.head.appendChild(styleEle);
+  document.head.appendChild(JSON.parse(styleEle));
 })()
 ```
 **webpack.config.js**
